@@ -38,3 +38,5 @@ def rps():
         print('Welkom,', name)
         my_choice = random.choice(['steen', 'papier', 'schaar'])
         print('Ik kies overigens ', my_choice)
+
+rps()
