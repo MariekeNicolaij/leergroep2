@@ -1,0 +1,19 @@
+#Als noord vrij is, ga noord en naar toestand 1.
+0 x*** -> N 1
+#Als noord geblokkeerd is, ga naar toestand 2.
+0 N*** -> X 2
+
+#Als oost vrij is, ga oost en naar toestand 3.
+1 *x** -> E 3
+#Als oost geblokkeerd is, ga naar toestand 0.
+1 *E** -> X 0
+
+#Als west vrij is, ga west en naar toestand 0.
+2 **x* -> W 0
+#Als west geblokkeerd is, ga naar toestand 3.
+2 **W* -> X 3
+
+#Als zuid vrij is, ga naar zuid en toestand 2.
+3 ***x -> S 2
+#Als zuid geblokkeerd is, ga naar toestand 1.
+3 ***S -> X 1
