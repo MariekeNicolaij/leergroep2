@@ -1,0 +1,32 @@
+Picobot opdracht 5 Tim/Marieke/Tom
+
+0 **x* -> W 0
+0 x*WS -> X 1
+0 N*Wx -> X 2
+0 N*WS -> X 3
+
+1 x*WS -> N 0
+1 N*WS -> X 3
+
+2 N*Wx -> S 0
+2 N*WS -> X 3
+
+3 xxxx -> E 4
+3 xEWS -> N 6
+3 NxWS -> E 4
+3 xxWS -> E 4
+
+4 x*** -> N 4
+4 N*** -> X 5
+
+5 ***x -> S 5
+5 ***S -> X 3
+
+6 xExS -> N 6
+6 xxxx -> E 7
+
+7 x*** -> N 7
+7 N*** -> X 8
+
+8 ***x -> S 8
+8 ***S -> X 6
