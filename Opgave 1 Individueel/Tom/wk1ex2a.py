@@ -37,4 +37,4 @@ def rps():
     else:
         print('Welkom,', name)
         my_choice = random.choice(['steen', 'papier', 'schaar'])
-        print('Ik kies overigens ', my_choice)
+        print('Ik kies overigens', my_choice)
