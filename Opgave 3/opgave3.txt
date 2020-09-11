@@ -1,0 +1,15 @@
+#Als er niks oost is, ga oost.
+0 *x** -> E 0
+#Als het oosten geblokkeerd is, ga naar toestand 1.
+0 *E** -> X 1
+
+#Als er niks zuid is, ga zuid.
+1 ***x -> S 1
+#Als het zuiden geblokkeerd is, ga naar toestand 2.
+1 ***S -> X 2
+
+#Als er niks noord is, ga noord.
+2 x*** -> N 2  
+#Als het noorden geblokkeerd is, ga naar toestand 1.
+2 N*** -> W 1 
+
