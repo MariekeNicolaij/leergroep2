@@ -1,4 +1,4 @@
-Picobot opdracht 5 Tim/Marieke/Tom
+# Picobot opdracht 5 Tim/Marieke/Tom
 
 0 **x* -> W 0
 0 x*WS -> X 1
