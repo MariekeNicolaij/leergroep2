@@ -91,3 +91,39 @@ def scrabble_score(s):
 #         return transcription + transcribe(s[1:])
 #     else:
 #         return ''
+
+# transcribe opdracht
+
+def transcribe(s = 'ACGT TGCA'):
+    """
+        Transcribes DNA into RNA
+    """
+
+    # als 's' niet string is of als 's' leeg is dan
+    if type(s) != str or not s:
+        return 'Not a string or string is empty!'
+    
+    # letters klein maken en spaties vervangen voor niks
+    s = s.upper().replace(' ','') 
+
+    # voor elke character in 's' iets doen
+    rna = ''
+    for i in s:
+        rna += one_dna_to_rna(i)
+
+    # return RNA
+    return rna
+
+def one_dna_to_rna(c):
+    """Converts a single-character c from DNA nucleotide
+       to complementary RNA nucleotide
+    """
+    if c == 'A':
+        return 'U'
+    elif c == 'C':
+        return 'G'
+    elif c == 'G':
+        return 'C'
+    elif c == 'T':
+        return 'A'
+
