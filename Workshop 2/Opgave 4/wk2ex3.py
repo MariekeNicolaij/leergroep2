@@ -99,12 +99,19 @@ def transcribe(s = 'ACGT TGCA'):
         Transcribes DNA into RNA
     """
 
-    # als 's' niet string is of als 's' leeg is dan
-    if type(s) != str or not s:
-        return 'Not a string or string is empty!'
-    
-    # letters klein maken en spaties vervangen voor niks
-    s = s.upper().replace(' ','') 
+    # als 's' niet string is dan
+    if type(s) != str:
+        return 'Not a string!'
+    # als 's' leeg is dan
+    if not s:
+        return 'String is empty!'
+    # lower case letter detected!
+    for i in s:
+        if i.islower():
+            return 'Lower case letter detected!'
+
+    # spaties vervangen voor niks
+    s = s.replace(' ','') 
 
     # voor elke character in 's' iets doen
     rna = ''
@@ -126,4 +133,6 @@ def one_dna_to_rna(c):
         return 'C'
     elif c == 'T':
         return 'A'
+    else:
+        return ''
 
