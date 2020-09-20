@@ -1,0 +1,11 @@
+De vraag
+Het artikel stelt dat we zowel in de wetenschap als in het bedrijfsleven,
+"geen genoegen hoeven te nemen met modellen".
+Ben je het wel of niet eens met deze uitspraak? Waarom?
+Je mag ook een meer genuanceerde mening of een middenweg innemen als je dat wilt.
+
+Het antwoord
+Ik ben het niet eens met de uitspraak omdat er uiteraard wel een manier moet zijn
+om je data te analyseren. Om data tegen elkaar aan te zetten heb je daarvoor een model
+nodig die dat het beste kan doen. Je kunt niet zomaar data pakken en zien van oh dit is super duidelijk dat dit dat doet.
+Kan toch niet? Bijvoorbeeld hoe kun je een trend uit de data halen als je daar gewoon naar staat te kijken?
