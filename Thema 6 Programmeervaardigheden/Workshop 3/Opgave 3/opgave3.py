@@ -34,5 +34,12 @@ def encipher(string, number):
 def decipher(s):
     return encipher(s, -1)
 
-def bisort(L):
+def blsort(L = [0,0,1,1,0,1,0,1,1,1,1,1]):
+    return [0 for x in L if x == 0] + [1 for x in L if x == 1]
+
+def count(e, L):
+    lc = [1 for x in L if x == e]
+    return len(lc)
+
+def gensort(L):
     return L
