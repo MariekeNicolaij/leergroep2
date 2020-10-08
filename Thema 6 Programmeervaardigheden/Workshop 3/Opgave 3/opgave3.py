@@ -58,3 +58,32 @@ def lingo(string = "poephhhhh", tring = "hanze"):
             similarLetters += 1
 
     return similarLetters
+
+import math
+
+def exact_change(target_amount = -69, L = [-69, -420], loseit = True):
+   # making sure values are not negative
+    target_amount = abs(target_amount)
+    for i in range(len(L)):
+        L[i] = abs(L[i])
+    # --
+    
+    if loseit:
+        # eerste munt verloren! shit!
+        print("Aww ben m'n eerste muntje verloren :(")
+        print("Kan ik het nog betalen?")
+        L = L[1:]
+
+        
+    else:
+        # kan ik met mijn eerste munt betalen?
+        useit = L[0]
+        if useit >= target_amount:
+            print("Eerste item voldoet")
+            return True
+
+    # heb ik genoeg ondanks alles?
+    return True if sum(L) >= target_amount else False
+
+def lcs(string, tring):
+    return "Ik ben moe"
