@@ -197,17 +197,78 @@ def reverse(filename):
     play('out.wav')
 
 # Te schrijven geluidsfunctie #2: volume
+# Deze moet nog overnieuw werkt noch niet goed!
 def volume(filename, scale_factor):
-    
+    sound_data = [0, 0]
+    read_wav(filename, sound_data)
+    samps = sound_data[0]
+    # print(samps)
+
+    play('spam.wav')
+
+    sr = sound_data[1] * scale_factor
+
+    new_sound_data = [samps, sr]
+
+    write_wav(new_sound_data, 'hoi.wav')
+
+    play('hoi.wav')
 
 # Te schrijven geluidsfunctie #3: static
+def static(filename, probability_of_static):
+    sound_data = [0, 0]
+    read_wav(filename, sound_data)
+    samps = sound_data[0]
+    sr = sound_data[1]
+
+    samps = replace_some(samps, probability_of_static)
+
+    new_sound_data = [samps, sr]
+
+    write_wav(new_sound_data, 'hoi.wav')
+    
+    play('hoi.wav')
 
 
 # Te schrijven geluidsfunctie #4: overlay
+def overlay(filename1, filename2):
+    sound_data1 = [0, 0]
+    read_wav(filename1, sound_data1)
+    samps1 = sound_data1[0]
+    sr1 = sound_data1[1]
 
+    sound_data2 = [0, 0]
+    read_wav(filename2, sound_data2)
+    samps2 = sound_data2[0]
+    sr2 = sound_data2[1]
+
+    new_samps = add_2(samps1, samps2)
+
+    new_sound_data = [new_samps, sr1]
+    write_wav(new_sound_data, 'test.wav')
+
+    play('test.wav')
 
 # Te schrijven geluidsfunctie #5: echo
+def echo(filename, time_delay):
+    sound_data = [0, 0]
+    read_wav(filename, sound_data)
+    samps = sound_data[0]
+    samps2 = []
+    sr = sound_data[1]
 
+    delay = time_delay * len(samps)
+    samps2.insert(0, delay)
+    samps2.append(samps)
+
+    print(samps2)
+
+    # new_samps = add_2(samps, samps2)
+
+    # new_sound_data = [new_samps, sr1]
+    # write_wav(new_sound_data, 'test.wav')
+
+    # play('test.wav')
 
 # Hulpfunctie om pure tonen te genereren
 def gen_pure_tone(freq, seconds, sound_data):
