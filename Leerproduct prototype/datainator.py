@@ -82,7 +82,7 @@ TOTAL_hospital_moving_avg_per_region = 0
 
 # Get data from given region
 print('--------------------------------------------------')
-print("Gemeente: " + stad + "\t" + "Datum: ", datum)
+print("Gemeente: " + stad + "\t" + "Datum: " + datum)
 print('')
 
 # totalen berekenen
@@ -147,7 +147,7 @@ print('')
 x = np.arange(0,DATA_length) 
 # y = 2 * x + 5 
 y = [i for i in DATA_total_reported_increase_per_region]
-plt.title(datum) 
+plt.title(stad + " " + datum) 
 plt.xlabel("Data object #") 
 plt.ylabel("DATA_total_reported_increase_per_region") 
 plt.plot(x,y,"ob") 
