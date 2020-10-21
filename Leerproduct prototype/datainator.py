@@ -147,7 +147,7 @@ print('')
 x = np.arange(0,DATA_length) 
 # y = 2 * x + 5 
 y = [i for i in DATA_total_reported_increase_per_region]
-plt.title("Matplotlib demo") 
+plt.title(datum) 
 plt.xlabel("Data object #") 
 plt.ylabel("DATA_total_reported_increase_per_region") 
 plt.plot(x,y,"ob") 
