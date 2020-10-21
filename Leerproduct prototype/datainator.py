@@ -36,8 +36,8 @@ for number, ss in enumerate(steden):
     print(number+1, '\t' + ss['name'])  # Wil niet bij '0' beginnen vandaar +1
 print('')  # Beetje whitespace tussen de teksten door
 
-file_name = ''
 # Nu kun je geen verkeerde datum invullen
+file_name = ''
 while not os.path.isfile(file_name):
     datum = input('Geef een datum in de format van yyyy-mm-dd op:')
     file_name = 'data/{}_1/{}.json'.format(datum, regio)
@@ -56,13 +56,20 @@ DATA_length = len(region_results)
 
 # Initiate data arrays
 DATA_rna = 0
+DATA_total_reported_increase_per_region = []
+DATA_infected_total_counts_per_region = []
+DATA_hospital_total_counts_per_region = []
+DATA_infected_increase_per_region = []
+DATA_hospital_increase_per_region = []
+DATA_hospital_moving_avg_per_region = []
+
 for d in region_results:
-    DATA_total_reported_increase_per_region = d['total_reported_increase_per_region']
-    DATA_infected_total_counts_per_region = d['infected_total_counts_per_region']
-    DATA_hospital_total_counts_per_region = d['hospital_total_counts_per_region']
-    DATA_infected_increase_per_region = d['infected_increase_per_region']
-    DATA_hospital_increase_per_region = d['hospital_increase_per_region']
-    DATA_hospital_moving_avg_per_region = d['hospital_moving_avg_per_region']
+    DATA_total_reported_increase_per_region.append(d['total_reported_increase_per_region'])
+    DATA_infected_total_counts_per_region.append(d['infected_total_counts_per_region'])
+    DATA_hospital_total_counts_per_region.append(d['hospital_total_counts_per_region'])
+    DATA_infected_increase_per_region.append(d['infected_increase_per_region'])
+    DATA_hospital_increase_per_region.append(d['hospital_increase_per_region'])
+    DATA_hospital_moving_avg_per_region.append(d['hospital_moving_avg_per_region'])
 
 # Initiate totales
 TOTAL_rna = 0
@@ -79,21 +86,21 @@ print("Gemeente: " + stad + "\t" + "Datum: ", datum)
 print('')
 
 # totalen berekenen
-for n in range(DATA_length):
-    TOTAL_total_reported_increase_per_region += DATA_total_reported_increase_per_region
-    TOTAL_infected_total_counts_per_region += DATA_infected_total_counts_per_region
-    TOTAL_hospital_total_counts_per_region += DATA_hospital_total_counts_per_region
-    TOTAL_infected_increase_per_region += DATA_infected_increase_per_region
-    TOTAL_hospital_increase_per_region += DATA_hospital_increase_per_region
-    TOTAL_hospital_moving_avg_per_region += DATA_hospital_moving_avg_per_region
+for i in range(DATA_length):
+    TOTAL_total_reported_increase_per_region += DATA_total_reported_increase_per_region[i]
+    TOTAL_infected_total_counts_per_region += DATA_infected_total_counts_per_region[i]
+    TOTAL_hospital_total_counts_per_region += DATA_hospital_total_counts_per_region[i]
+    TOTAL_infected_increase_per_region += DATA_infected_increase_per_region[i]
+    TOTAL_hospital_increase_per_region += DATA_hospital_increase_per_region[i]
+    TOTAL_hospital_moving_avg_per_region += DATA_hospital_moving_avg_per_region[i]
 
 # calculate average
-AVERAGE_total_reported_increase_per_region = round(DATA_length / DATA_total_reported_increase_per_region, decimalen) if DATA_total_reported_increase_per_region > 0 else 0
-AVERAGE_infected_total_counts_per_region = round(DATA_length / DATA_infected_total_counts_per_region, decimalen) if DATA_infected_total_counts_per_region > 0 else 0
-AVERAGE_hospital_total_counts_per_region = round(DATA_length / DATA_hospital_total_counts_per_region, decimalen) if DATA_hospital_total_counts_per_region > 0 else 0
-AVERAGE_infected_increase_per_region = round(DATA_length / DATA_infected_increase_per_region, decimalen) if DATA_infected_increase_per_region > 0 else 0
-AVERAGE_hospital_increase_per_region = round(DATA_length / DATA_hospital_increase_per_region, decimalen) if DATA_hospital_increase_per_region > 0 else 0
-AVERAGE_hospital_moving_avg_per_region = round(DATA_length / DATA_hospital_moving_avg_per_region, decimalen) if DATA_hospital_moving_avg_per_region > 0 else 0
+AVERAGE_total_reported_increase_per_region = round(DATA_length / TOTAL_total_reported_increase_per_region, decimalen) if TOTAL_total_reported_increase_per_region > 0 else 0
+AVERAGE_infected_total_counts_per_region = round(DATA_length / TOTAL_infected_total_counts_per_region, decimalen) if TOTAL_infected_total_counts_per_region > 0 else 0
+AVERAGE_hospital_total_counts_per_region = round(DATA_length / TOTAL_hospital_total_counts_per_region, decimalen) if TOTAL_hospital_total_counts_per_region > 0 else 0
+AVERAGE_infected_increase_per_region = round(DATA_length / TOTAL_infected_increase_per_region, decimalen) if TOTAL_infected_increase_per_region > 0 else 0
+AVERAGE_hospital_increase_per_region = round(DATA_length / TOTAL_hospital_increase_per_region, decimalen) if TOTAL_hospital_increase_per_region > 0 else 0
+AVERAGE_hospital_moving_avg_per_region = round(DATA_length / TOTAL_hospital_moving_avg_per_region, decimalen) if TOTAL_hospital_moving_avg_per_region > 0 else 0
 
 # total_reported_increase_per_region
 print("Total reported: ", TOTAL_total_reported_increase_per_region)
@@ -130,17 +137,19 @@ for d in data['results_per_sewer_installation_per_region']['values'][0]['values'
     TOTAL_rna = TOTAL_rna + d['rna_per_ml']
 
 print("Total ribonucleïnezuur (rna) per ml", TOTAL_rna)
+print('--------------------------------------------------')
 print('')
 print('')
 
 
 # eem wat proberen
 
-x = np.arange(1,11) 
-y = 2 * x + 5 
+x = np.arange(0,DATA_length) 
+# y = 2 * x + 5 
+y = [i for i in DATA_total_reported_increase_per_region]
 plt.title("Matplotlib demo") 
-plt.xlabel("x axis caption") 
-plt.ylabel("y axis caption") 
+plt.xlabel("Data object #") 
+plt.ylabel("DATA_total_reported_increase_per_region") 
 plt.plot(x,y,"ob") 
 
 plt.show()
