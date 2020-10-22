@@ -70,85 +70,8 @@ data_array_length = len(data_array['date_of_report_unix']) # is toch allemaal he
 # stap 4: vul een datum in
 datum = ''
 while datum not in dates: # Je kunt alleen een bestaande datum vinden
-    datum = input('Geef een geldige datum in het yyyy-mm-dd format op:')
-
-# ---------- Print totals en averages ----------
-
-#region print_totals_and_averages
-    print('--------------------------------------------------')
-    print("Gemeente: " + gemeente + "\t" + "Datum ingevuld: " + datum + "\t" + "Laatst bijgewerkt: " + dates[-1])
-    print('')
-
-    total = 0
-
-    # total_reported_increase_per_region
-    for x in data_array['total_reported_increase_per_region']:
-        total = total + x
-    average = total / len(data_array['total_reported_increase_per_region'])
-    total = 0
-
-    print("Total reported: ", math.floor(total))
-    print("Average per day: ", math.floor(average))
-    print('')
-
-    # infected_total_counts_per_region
-    for x in data_array['infected_total_counts_per_region']:
-        total = total + x
-    average = total / len(data_array['infected_total_counts_per_region'])
-    total = 0
-
-    print("Total infected: ", math.floor(total))
-    print("Average per day: ", math.floor(average))
-    print('')
-
-    # hospital_total_counts_per_region
-    for x in data_array['hospital_total_counts_per_region']:
-        total = total + x
-    average = total / len(data_array['hospital_total_counts_per_region'])
-    total = 0
-
-    print("Total in hospital: ", math.floor(total))
-    print("Average per day: ", math.floor(average))
-    print('')
-
-    # infected_increase_per_region
-    for x in data_array['infected_increase_per_region']:
-        total = total + x
-    average = total / len(data_array['infected_increase_per_region'])
-    total = 0
-
-    print("Total infected increase: ", math.floor(total))
-    print("Average per day: ", math.floor(average))
-    print('')
-
-    # hospital_increase_per_region
-    for x in data_array['hospital_increase_per_region']:
-        total = total + x
-    average = total / len(data_array['hospital_increase_per_region'])
-    total = 0
-
-    print("Total hospital increase: ", math.floor(total))
-    print("Average per day: ", math.floor(average))
-    print('')
-
-    # hospital_moving_avg_per_region
-    for x in data_array['hospital_moving_avg_per_region']:
-        total = total + x
-    average = total / len(data_array['hospital_moving_avg_per_region'])
-    total = 0
-
-    print("Total hospital moving average: ", math.floor(total))
-    print("Average per day: ", math.floor(average))
-    print('')
-
-    # Bereken totale rna per ml van gegeven data en regio
-    # for d in data['results_per_sewer_installation_per_region']['values'][0]['values']:
-    #     TOTAL_rna = TOTAL_rna + d['rna_per_ml']
-    # print("Total ribonucleïnezuur (rna) per ml", TOTAL_rna)
-    print('--------------------------------------------------')
-    print('')
-    print('')
-    #endregion
+    datum = input('Geef een geldige datum in het yyyy-mm-dd format op:') # we gebruiken deze format omdat dit ook zo in de data wordt gebruikt
+    # waarom print hij al het volgende wanneer je niet een goede datum in vult? en toch blijft ie zeuren om een goede datum
 
 # ---------- Grafieken ----------
 
@@ -182,7 +105,7 @@ plt.plot(x,y,"ob")
 plt.show()
 
 # Tim kan jij er voor zorgen: 
-# * dat er lijntjes tussen de punten komen
+# * dat er lijntjes tussen de punten komen of bars
 # * dat de gekozen 'datum' een kleurtje krijgt (is niet heel belangrijk)
 # * dat het grafiek venster iets groter is zodat die datums niet zo over elkaar heen lopen 
 # * zou heel vet zijn als je voor elkaar weet te krijgen hoe we alle grafieken in 1 scherm 
