@@ -2,6 +2,7 @@ import os.path
 import json
 import math
 
+from datetime import datetime
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -12,7 +13,7 @@ with open('data/gemeente_veiligheidsregio.json', 'r') as f:
 
 # print (type(regio_data)) # list
 #print (regio_data[1])
-#print (regio_data[2])
+#print (regio_data[2])4
 
 
 # Nu kun je niet een niet bestaande stad invullen
@@ -37,106 +38,110 @@ for number, ss in enumerate(steden):
 print('')  # Beetje whitespace tussen de teksten door
 
 # Nu kun je geen verkeerde datum invullen
-file_name = ''
-while not os.path.isfile(file_name):
-    datum = input('Geef een datum in de format van yyyy-mm-dd op:')
-    file_name = 'data/{}_1/{}.json'.format(datum, regio)
-print('')
+file_name = 'data/{}.json'.format(regio)
 
-# Get data from given date and region
+# Data ophalen en storen in arrays
 with open(file_name, 'r') as f:
     data = json.load(f)
 
-# De objecten van de resultaten per regio
 region_results = data['results_per_region']['values']
-decimalen = 2
 
-# data length
-DATA_length = len(region_results)
+dataArray = {
+    'date_of_report_unix': [],
+    'vrcode': [],
+    'total_reported_increase_per_region': [],
+    'infected_total_counts_per_region': [],
+    'hospital_total_counts_per_region': [],
+    'infected_increase_per_region': [],
+    'hospital_increase_per_region': [],
+    'infected_moving_avg_per_region': [],
+    'hospital_moving_avg_per_region': [],
+    'date_of_insertion_unix': []
+}
 
-# Initiate data arrays
-DATA_rna = 0
-DATA_total_reported_increase_per_region = []
-DATA_infected_total_counts_per_region = []
-DATA_hospital_total_counts_per_region = []
-DATA_infected_increase_per_region = []
-DATA_hospital_increase_per_region = []
-DATA_hospital_moving_avg_per_region = []
+# Setting dates array for date input verification
+dates = []
 
-for d in region_results:
-    DATA_total_reported_increase_per_region.append(d['total_reported_increase_per_region'])
-    DATA_infected_total_counts_per_region.append(d['infected_total_counts_per_region'])
-    DATA_hospital_total_counts_per_region.append(d['hospital_total_counts_per_region'])
-    DATA_infected_increase_per_region.append(d['infected_increase_per_region'])
-    DATA_hospital_increase_per_region.append(d['hospital_increase_per_region'])
-    DATA_hospital_moving_avg_per_region.append(d['hospital_moving_avg_per_region'])
+for x in region_results:
+    for key in x:
+        if (key == 'date_of_report_unix'):
+            dataArray[key].append(x[key])
 
-# Initiate totales
-TOTAL_rna = 0
-TOTAL_total_reported_increase_per_region = 0
-TOTAL_infected_total_counts_per_region = 0
-TOTAL_hospital_total_counts_per_region = 0
-TOTAL_infected_increase_per_region = 0
-TOTAL_hospital_increase_per_region = 0
-TOTAL_hospital_moving_avg_per_region = 0
+            unixDate = datetime.utcfromtimestamp(x[key]).strftime('%Y-%m-%d')
+            dates.append(unixDate)
+        else:
+            dataArray[key].append(x[key])
 
-# Get data from given region
+datum = ''
+while datum not in dates :
+    datum = input('Geef een geldige datum in het yyyy-mm-dd format op:')
+
+# Write data to console view
 print('--------------------------------------------------')
-print("Gemeente: " + stad + "\t" + "Datum: " + datum)
+print("Gemeente: " + stad + "\t" + "Bijgewerkt: " + dates[-1])
 print('')
 
-# totalen berekenen
-for i in range(DATA_length):
-    TOTAL_total_reported_increase_per_region += DATA_total_reported_increase_per_region[i]
-    TOTAL_infected_total_counts_per_region += DATA_infected_total_counts_per_region[i]
-    TOTAL_hospital_total_counts_per_region += DATA_hospital_total_counts_per_region[i]
-    TOTAL_infected_increase_per_region += DATA_infected_increase_per_region[i]
-    TOTAL_hospital_increase_per_region += DATA_hospital_increase_per_region[i]
-    TOTAL_hospital_moving_avg_per_region += DATA_hospital_moving_avg_per_region[i]
-
-# calculate average
-AVERAGE_total_reported_increase_per_region = round(DATA_length / TOTAL_total_reported_increase_per_region, decimalen) if TOTAL_total_reported_increase_per_region > 0 else 0
-AVERAGE_infected_total_counts_per_region = round(DATA_length / TOTAL_infected_total_counts_per_region, decimalen) if TOTAL_infected_total_counts_per_region > 0 else 0
-AVERAGE_hospital_total_counts_per_region = round(DATA_length / TOTAL_hospital_total_counts_per_region, decimalen) if TOTAL_hospital_total_counts_per_region > 0 else 0
-AVERAGE_infected_increase_per_region = round(DATA_length / TOTAL_infected_increase_per_region, decimalen) if TOTAL_infected_increase_per_region > 0 else 0
-AVERAGE_hospital_increase_per_region = round(DATA_length / TOTAL_hospital_increase_per_region, decimalen) if TOTAL_hospital_increase_per_region > 0 else 0
-AVERAGE_hospital_moving_avg_per_region = round(DATA_length / TOTAL_hospital_moving_avg_per_region, decimalen) if TOTAL_hospital_moving_avg_per_region > 0 else 0
+total = 0
 
 # total_reported_increase_per_region
-print("Total reported: ", TOTAL_total_reported_increase_per_region)
-print("Average: ", AVERAGE_total_reported_increase_per_region)
+for x in dataArray['total_reported_increase_per_region']:
+    total = total + x
+average = total / len(dataArray['total_reported_increase_per_region'])
+
+print("Total reported: ", total)
+print("Average per day: ", round(average))
 print('')
 
 # infected_total_counts_per_region
-print("Total infected: ", math.floor(TOTAL_infected_total_counts_per_region))
-print("Average: ", AVERAGE_infected_total_counts_per_region)
+for x in dataArray['infected_total_counts_per_region']:
+    total = total + x
+average = total / len(dataArray['infected_total_counts_per_region'])
+
+print("Total infected: ", math.floor(total))
+print("Average per day: ", average)
 print('')
 
 # hospital_total_counts_per_region
-print("Total in hospital: ", math.floor(TOTAL_hospital_total_counts_per_region))
-print("Average: ", AVERAGE_hospital_total_counts_per_region)
+for x in dataArray['hospital_total_counts_per_region']:
+    total = total + x
+average = total / len(dataArray['hospital_total_counts_per_region'])
+
+print("Total in hospital: ", math.floor(total))
+print("Average per day: ", average)
 print('')
 
 # infected_increase_per_region
-print("Total infected increase: ", math.floor(TOTAL_infected_increase_per_region))
-print("Average: ", AVERAGE_infected_increase_per_region)
+for x in dataArray['infected_increase_per_region']:
+    total = total + x
+average = total / len(dataArray['infected_increase_per_region'])
+
+print("Total infected increase: ", math.floor(total))
+print("Average per day: ", average)
 print('')
 
 # hospital_increase_per_region
-print("Total hospital increase: ", math.floor(TOTAL_hospital_increase_per_region))
-print("Average: ", AVERAGE_hospital_increase_per_region)
+for x in dataArray['hospital_increase_per_region']:
+    total = total + x
+average = total / len(dataArray['hospital_increase_per_region'])
+
+print("Total hospital increase: ", math.floor(total))
+print("Average per day: ", average)
 print('')
 
 # hospital_moving_avg_per_region
-print("Total hospital moving average: ", math.floor(TOTAL_hospital_moving_avg_per_region))
-print("Average: ", AVERAGE_hospital_moving_avg_per_region)
+for x in dataArray['hospital_moving_avg_per_region']:
+    total = total + x
+average = total / len(dataArray['hospital_moving_avg_per_region'])
+
+print("Total hospital moving average: ", math.floor(total))
+print("Average per day: ", average)
 print('')
 
 # Bereken totale rna per ml van gegeven data en regio
-for d in data['results_per_sewer_installation_per_region']['values'][0]['values']:
-    TOTAL_rna = TOTAL_rna + d['rna_per_ml']
+# for d in data['results_per_sewer_installation_per_region']['values'][0]['values']:
+#     TOTAL_rna = TOTAL_rna + d['rna_per_ml']
 
-print("Total ribonucleïnezuur (rna) per ml", TOTAL_rna)
+# print("Total ribonucleïnezuur (rna) per ml", TOTAL_rna)
 print('--------------------------------------------------')
 print('')
 print('')
