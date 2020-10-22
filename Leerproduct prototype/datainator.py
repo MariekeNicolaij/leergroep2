@@ -87,8 +87,8 @@ while datum not in dates: # Je kunt alleen een bestaande datum vinden
     average = total / len(data_array['total_reported_increase_per_region'])
     total = 0
 
-    print("Total reported: ", total)
-    print("Average per day: ", round(average))
+    print("Total reported: ", math.floor(total))
+    print("Average per day: ", math.floor(average))
     print('')
 
     # infected_total_counts_per_region
@@ -98,7 +98,7 @@ while datum not in dates: # Je kunt alleen een bestaande datum vinden
     total = 0
 
     print("Total infected: ", math.floor(total))
-    print("Average per day: ", average)
+    print("Average per day: ", math.floor(average))
     print('')
 
     # hospital_total_counts_per_region
@@ -108,7 +108,7 @@ while datum not in dates: # Je kunt alleen een bestaande datum vinden
     total = 0
 
     print("Total in hospital: ", math.floor(total))
-    print("Average per day: ", average)
+    print("Average per day: ", math.floor(average))
     print('')
 
     # infected_increase_per_region
@@ -118,7 +118,7 @@ while datum not in dates: # Je kunt alleen een bestaande datum vinden
     total = 0
 
     print("Total infected increase: ", math.floor(total))
-    print("Average per day: ", average)
+    print("Average per day: ", math.floor(average))
     print('')
 
     # hospital_increase_per_region
@@ -128,7 +128,7 @@ while datum not in dates: # Je kunt alleen een bestaande datum vinden
     total = 0
 
     print("Total hospital increase: ", math.floor(total))
-    print("Average per day: ", average)
+    print("Average per day: ", math.floor(average))
     print('')
 
     # hospital_moving_avg_per_region
@@ -138,7 +138,7 @@ while datum not in dates: # Je kunt alleen een bestaande datum vinden
     total = 0
 
     print("Total hospital moving average: ", math.floor(total))
-    print("Average per day: ", average)
+    print("Average per day: ", math.floor(average))
     print('')
 
     # Bereken totale rna per ml van gegeven data en regio
@@ -167,7 +167,7 @@ datum_min_index = (datum_max_index - 6) if (datum_max_index - 6) > 0 else 0 # 7 
 
 x = dates[datum_min_index:datum_max_index + 1] # wil niet dat ie de laatste exclude
 y = data_array['total_reported_increase_per_region'][datum_min_index:datum_max_index + 1] # wil niet dat ie de laatste exclude
-plt.title(gemeente + ": total_reported_increase_per_region") 
+plt.title(regio + ": total_reported_increase_per_region")  # dus niet de gemeente! dat is niet logisch
 plt.xlabel("Datum") 
 plt.ylabel("Waarde") 
 plt.plot(x,y,"ob") 
@@ -175,7 +175,7 @@ plt.show()
 
 x = dates[datum_min_index:datum_max_index + 1] # wil niet dat ie de laatste exclude
 y = data_array['hospital_total_counts_per_region'][datum_min_index:datum_max_index + 1] # wil niet dat ie de laatste exclude
-plt.title(gemeente + ": hospital_total_counts_per_region") 
+plt.title(regio + ": hospital_total_counts_per_region") # dus niet de gemeente! dat is niet logisch
 plt.xlabel("Datum") 
 plt.ylabel("Waarde") 
 plt.plot(x,y,"ob") 
