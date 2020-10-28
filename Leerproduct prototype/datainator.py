@@ -12,7 +12,7 @@ from datetime import datetime
 with open('data/gemeente_veiligheidsregio.json', 'r') as f:
     regio_data = json.load(f)
 
-# Stap 2: Voer een gemeente in en dan word de VR (veiligheidsregios) van die gemeente opgezocht
+# Stap 2: Voer een gemeente in en dan wordt de VR (veiligheidsregios) van die gemeente opgezocht
 regios = ''
 while not regios: # Nu kun je niet een niet bestaande stad invullen
     gemeente = input("Geef uw gemeente op: ")
